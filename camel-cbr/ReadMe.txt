@@ -1,24 +1,49 @@
-Camel Project for Blueprint 
-=========================================
-Leer de un archivo xml que contiene el nombres y apellidos, nombre del curso y las notas de los estudiantes por cortes,
-si el promedio de las notas es superior a 3.0 envíar calificación del 
-estudiante como aprobado, si es superior a 4.5 enviar mensaje de felicitacion,
-en ambos casos se debe enviar nombre, curso y calificación del estudiante. Salida en formato xml.
-=========================================
-
-To build this project use
-
-    mvn install
-
-To run the project you can execute the following Maven goal
-
-    mvn camel:run
-
-To deploy the project in OSGi. For example using Apache Karaf.
-You can run the following command from its shell:
-
-    osgi:install -s mvn:com.mycompany/camel-blueprint/1.0.0-SNAPSHOT
-
-For more help see the Apache Camel documentation
-
-    http://camel.apache.org/
+public class RouteTest extends CamelTestSupport{
+	@Override
+	public RouteBuilder createRouteBuilder () {
+		return new Route();
+	}
+	
+	@Test
+	public void testWhen1 () throws InterruptedException {
+		String textXml = "<?xml version='1.0' encoding='UTF-8'?><estudiante><nombres>Fredis David</nombres><apellidos>Vergara Giraldo</apellidos><curso>Desarrollo web</curso><calificacion1>3.0</calificacion1><calificacion2>2.4</calificacion2><calificacion3>3.9</calificacion3></estudiante>";
+		Thread.sleep(2000);
+		template.sendBody("direct:filexml", textXml);
+		
+		MockEndpoint mockVelocity  = getMockEndpoint("mock:velocity");
+		mockVelocity.expectedMessageCount(1);
+	
+		
+		Exchange exchange = mockVelocity.assertExchangeReceived(0);
+		assertEquals("<?xml version='1.0' encoding='UTF-8'?><estudiante><nombres>Fredis David</nombres><apellidos>Vergara Giraldo</apellidos><mensaje>Desarrollo web</mensaje><curso>Aprobado</curso><comentario>Felicidades</comentario></estudiante>", exchange.getIn().getBody());
+	}
+	
+	@Test
+	public void testWhen2 () throws InterruptedException {
+		String textXml = "<?xml version='1.0' encoding='UTF-8'?><estudiante><nombres>Fredis David</nombres><apellidos>Vergara Giraldo</apellidos><curso>Desarrollo web</curso><calificacion1>5.0</calificacion1><calificacion2>4.8</calificacion2><calificacion3>4.5</calificacion3></estudiante>";
+		Thread.sleep(2000);
+		template.sendBody("direct:filexml", textXml);
+		
+		MockEndpoint mockVelocity  = getMockEndpoint("mock:velocity");
+		mockVelocity.expectedMessageCount(1);
+	
+		
+		Exchange exchange = mockVelocity.assertExchangeReceived(0);
+		assertEquals("<?xml version='1.0' encoding='UTF-8'?><estudiante><nombres>Fredis David</nombres><apellidos>Vergara Giraldo</apellidos><mensaje>Desarrollo web</mensaje><curso>Aprobado</curso><comentario>Felicidades, eres uno de los mejores</comentario></estudiante>", exchange.getIn().getBody());
+	}	
+	
+	@Test
+	public void testWhen3 () throws InterruptedException {
+		String textXml = "<?xml version='1.0' encoding='UTF-8'?><estudiante><nombres>Fredis David</nombres><apellidos>Vergara Giraldo</apellidos><curso>Desarrollo web</curso><calificacion1>2.0</calificacion1><calificacion2>2.8</calificacion2><calificacion3>2.5</calificacion3></estudiante>";
+		Thread.sleep(2000);
+		template.sendBody("direct:filexml", textXml);
+		
+		MockEndpoint mockVelocity  = getMockEndpoint("mock:velocity");
+		mockVelocity.expectedMessageCount(1);
+	
+		
+		Exchange exchange = mockVelocity.assertExchangeReceived(0);
+		assertEquals("<?xml version='1.0' encoding='UTF-8'?><estudiante><nombres>Fredis David</nombres><apellidos>Vergara Giraldo</apellidos><mensaje>Desarrollo web</mensaje><curso>Reprobado</curso><comentario>Tienes que hacer mas esfuerzo</comentario></estudiante>", exchange.getIn().getBody());
+	}		
+	
+}
