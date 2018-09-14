@@ -1,0 +1,6 @@
+co\com\summan\models\Modelo.class
+co\com\summan\routes\Route.class
+co\com\summan\models\Respuesta.class
+co\com\summan\models\estudiante.class
+co\com\summan\beans\myBean.class
+co\com\summan\beans\myBeanCalificacion.class

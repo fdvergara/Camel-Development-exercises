@@ -1,0 +1,1 @@
+proyecto $body.nombre representado por el codigo $body.codigo tendra como comienzo el día $body.fecha, el encargado por parte del cliente será $body.cliente
