@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<estudiante>
-	<nombres>Marta</nombres>
-	<apellidos>Sanches Corredor</apellidos>
-	<curso>Desarrollo web</curso>
-	<calificacion1>1.0</calificacion1>
-	<calificacion2>2.1</calificacion2>
-	<calificacion3>2.9</calificacion3>
-</estudiante>

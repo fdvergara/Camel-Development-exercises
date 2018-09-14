@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<estudiante>
-	<nombres>Arleidys</nombres>
-	<apellidos>Sierra Cordero</apellidos>
-	<curso>Desarrollo web</curso>
-	<calificacion1>4.5</calificacion1>
-	<calificacion2>4.5</calificacion2>
-	<calificacion3>4.8</calificacion3>
-</estudiante>
