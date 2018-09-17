@@ -1,5 +1,9 @@
 Camel Project for Blueprint 
-=========================================
+=============================
+
+Consider the folow code to make a class:
+```java
+
 public class TestRoute extends CamelTestSupport{
 	@Override
 	public RouteBuilder createRouteBuilder () {
