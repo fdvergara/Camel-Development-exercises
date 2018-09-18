@@ -1,3 +1,9 @@
+Camel Project for Blueprint 
+=============================
+
+Consider the folow code to make a class:
+```java
+
 public class Route extends RouteBuilder{
 
 	@Override
